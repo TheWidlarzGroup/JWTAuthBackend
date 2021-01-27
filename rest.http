@@ -1,0 +1,38 @@
+GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI5OTYxNjIsImV4cCI6MTU5Mjk5NjE3NywiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.fsED23a_2dINM1saPjmHkc_gVrsuptb1oSNh0GR-03M
+
+###Login Route
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "jhondoe@gmail.com",
+  "password": "1234"
+}
+
+
+###Register Route
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "yourstruly267@gmail.com",
+  "password": "1234",
+  "name": "Mikolaj Lipinski"
+}
+
+###Refresh token Route
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI5OTYxMzcsImV4cCI6MTYyNDU1MzczNywiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.9kFX7LEzyh6eopqF_TGZQRwYqrIPUUdN441ekfKxu7Q"
+}
+
+###Logout Route
+DELETE http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI1ODcyOTIsImV4cCI6MTYyNDE0NDg5MiwiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.OGfV-n2fsuV2D5nvUGEzU7KLtkbIy1Pmm4DwxB75MKU"
+}

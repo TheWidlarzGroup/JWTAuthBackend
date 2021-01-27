@@ -1,21 +1,40 @@
 import express from "express";
+import { register } from "src/Services/Auth.Service";
 
 const AuthRouter = express.Router();
 
-AuthRouter.post("/register", async (_req, res, _next) => {
-  res.send("register route");
+AuthRouter.post("/register", async (req, res, next) => {
+  try {
+    const result = await register(req.body);
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 });
 
-AuthRouter.post("/login", async (_req, res, _next) => {
-  res.send("login route");
+AuthRouter.post("/login", async (_req, res, next) => {
+  try {
+    res.send("login route");
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
-AuthRouter.post("/refresh-token", async (_req, res, _next) => {
-  res.send("refresh token route");
+AuthRouter.post("/refresh-token", async (_req, res, next) => {
+  try {
+    res.send("refresh token route");
+  } catch (error) {
+    next(error);
+  }
 });
 
-AuthRouter.delete("/logout", async (_req, res, _next) => {
-  res.send("logout route");
+AuthRouter.delete("/logout", async (_req, res, next) => {
+  try {
+    res.send("logout route");
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default AuthRouter;
