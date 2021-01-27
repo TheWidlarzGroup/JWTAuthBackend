@@ -1,5 +1,5 @@
 import express from "express";
-import { login, register } from "src/Services/Auth.Service";
+import { login, refreshToken, register } from "src/Services/Auth.Service";
 
 const AuthRouter = express.Router();
 
@@ -22,9 +22,10 @@ AuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-AuthRouter.post("/refresh-token", async (_req, res, next) => {
+AuthRouter.post("/refresh-token", async (req, res, next) => {
   try {
-    res.send("refresh token route");
+    const result = await refreshToken(req.body);
+    res.send(result);
   } catch (error) {
     next(error);
   }

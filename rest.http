@@ -1,18 +1,18 @@
-GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI5OTYxNjIsImV4cCI6MTU5Mjk5NjE3NywiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.fsED23a_2dINM1saPjmHkc_gVrsuptb1oSNh0GR-03M
+GET http://localhost:3001
+Authorization: Bearer eyJhbGcsiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6NSwidXNlckVtYWlsIjoia2FjcGVyQGdtYWlsLmNvbSJ9LCJpYXQiOjE2MTE3ODI4NjksImV4cCI6MTYxMTc4MzE2OSwiYXVkIjoiNSJ9.jwql5kIr3xpyrw_QBncPffDEyyivAlD9_YenX-ca2c4
 
 ###Login Route
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-  "email": "mocmajonezu@gmail.com",
+  "email": "kacper@gmail.com",
   "password": "Haslo123"
 }
 
 
 ###Register Route
-POST http://localhost:3000/auth/register
+POST http://localhost:3001/auth/register
 Content-Type: application/json
 
 {
@@ -22,15 +22,15 @@ Content-Type: application/json
 }
 
 ###Refresh token Route
-POST http://localhost:3000/auth/refresh-token
+POST http://localhost:3001/auth/refresh-token
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI5OTYxMzcsImV4cCI6MTYyNDU1MzczNywiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.9kFX7LEzyh6eopqF_TGZQRwYqrIPUUdN441ekfKxu7Q"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6NSwidXNlckVtYWlsIjoia2FjcGVyQGdtYWlsLmNvbSJ9LCJpYXQiOjE2MTE3ODI4NjksImV4cCI6MTY0MzM0MDQ2OSwiYXVkIjoiNSJ9.elD1W5OfgAOOcELcY2f-aveZM6q2TegAnelpm6U-uQc"
 }
 
 ###Logout Route
-DELETE http://localhost:3000/auth/logout
+DELETE http://localhost:3001/auth/logout
 Content-Type: application/json
 
 {

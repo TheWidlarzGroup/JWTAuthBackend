@@ -3,10 +3,10 @@ import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
 import JWT from "jsonwebtoken";
 
-export const signAccessToken = (userId: number, userEmail: string) => {
+export const signAccessToken = (userId: number) => {
   return new Promise((resolve, reject) => {
     const payload = {
-      user: { userId, userEmail },
+      user: { userId },
     };
     const secret = process.env.ACCESS_TOKEN_SECRET || "RandomToken";
     const options = {
@@ -41,10 +41,10 @@ export const verifyAccessToken = (req: Request, _res: Response, next: NextFuncti
   });
 };
 
-export const signRefreshToken = (userId: number, userEmail: string) =>
+export const signRefreshToken = (userId: number) =>
   new Promise((resolve, reject) => {
     const payload = {
-      user: { userId, userEmail },
+      user: { userId },
     };
     const secret = process.env.REFRESH_TOKEN_SECRET || "RandomRefreshToken";
     const options = {
@@ -61,16 +61,19 @@ export const signRefreshToken = (userId: number, userEmail: string) =>
     });
   });
 
-export const verifyRefreshToken = (refreshToken: string) =>
+export const verifyRefreshToken = (refreshToken: string): Promise<number> =>
   new Promise((resolve, reject) => {
     JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || "RandomRefreshToken", async (err, payload: any) => {
       if (err) return reject(new createError.Unauthorized());
-      const userId: number | undefined = payload.aud;
-      const user = await prisma.user.findUnique({ where: { id: userId } });
+      const userId: string | undefined = payload.aud;
+      if (!userId) {
+        throw new createError.Unauthorized();
+      }
+      const user = await prisma.user.findUnique({ where: { id: +userId } });
       if (!user) {
         reject(new createError.Unauthorized());
       }
-      if (refreshToken === user?.refresh_token) return resolve(userId);
+      if (refreshToken === user?.refresh_token) return resolve(+userId);
       reject(new createError.Unauthorized());
     });
   });

@@ -4,23 +4,22 @@ import morgan from "morgan";
 import AuthRouter from "./Controllers/Auth.Controller";
 import { initDb } from "./db";
 import { ErrorType } from "./types";
-import { prisma } from "@db";
+import { verifyAccessToken } from "./Services/Token.Service";
 require("dotenv").config();
 
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get("/", async (_req, res, _next) => {
-  const response = await prisma.user.findFirst({ rejectOnNotFound: true });
-  console.log(response);
-  res.send(response);
-});
 
 // +++++++++++
 /* ROUTERS */
 // ++++++++
 app.use("/auth", AuthRouter);
+
+app.get("/", verifyAccessToken, async (_req, res, _next) => {
+  res.send("Hello from express.");
+});
 
 // ++++++++++++++++++
 /* ERROR HANDLERS */
@@ -38,7 +37,7 @@ app.use(async (err: ErrorType, _req: Request, res: Response, _next: NextFunction
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Init db connection + init express server.
 (async () => {
