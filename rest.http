@@ -6,8 +6,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "jhondoe@gmail.com",
-  "password": "1234"
+  "email": "mocmajonezu@gmail.com",
+  "password": "Haslo123"
 }
 
 
@@ -16,9 +16,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "email": "yourstruly267@gmail.com",
-  "password": "1234",
-  "name": "Mikolaj Lipinski"
+  "email": "kacper@gmail.com",
+  "password": "Haslo123",
+  "name": "Kacper Kedzierski"
 }
 
 ###Refresh token Route

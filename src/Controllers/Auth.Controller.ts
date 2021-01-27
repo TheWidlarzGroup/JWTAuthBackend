@@ -1,5 +1,5 @@
 import express from "express";
-import { register } from "src/Services/Auth.Service";
+import { login, register } from "src/Services/Auth.Service";
 
 const AuthRouter = express.Router();
 
@@ -12,9 +12,10 @@ AuthRouter.post("/register", async (req, res, next) => {
   }
 });
 
-AuthRouter.post("/login", async (_req, res, next) => {
+AuthRouter.post("/login", async (req, res, next) => {
   try {
-    res.send("login route");
+    const result = await login(req.body);
+    res.send(result);
   } catch (error) {
     console.log(error);
     next(error);
