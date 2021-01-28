@@ -1,15 +1,19 @@
 import express from "express";
-import { login, logout, refreshToken, register } from "src/Services/Auth.Service";
+import { verifyAccessToken } from "src/Services/Token.Service";
+import { prisma } from "@db";
 
-const AuthRouter = express.Router();
+const UserRouter = express.Router();
 
-AuthRouter.get("/me", async (req, res, next) => {
+UserRouter.use(verifyAccessToken);
+
+UserRouter.get("/me", async (req, res, next) => {
   try {
-    const result = await register(req.body);
-    res.send(result);
+    const userId = req.payload?.user?.userId;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    res.send(user);
   } catch (error) {
     next(error);
   }
 });
 
-export default AuthRouter;
+export default UserRouter;

@@ -20,7 +20,6 @@ export const signAccessToken = (userId: number) => {
         return;
       }
       await prisma.user.update({ where: { id: userId }, data: { access_token: token } });
-
       resolve(token);
     });
   });
@@ -31,8 +30,6 @@ export const verifyAccessToken = (req: Request, _res: Response, next: NextFuncti
   const authHeader = req.headers["authorization"];
   const bearerToken = authHeader.split(" ");
   const token = bearerToken[1];
-  console.log(token);
-  console.log(req.headers);
   JWT.verify(token, process.env.ACCESS_TOKEN_SECRET || "RandomToken", async (err, payload) => {
     if (err) {
       const message = err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
@@ -68,6 +65,7 @@ export const signRefreshToken = (userId: number) =>
 
 export const verifyRefreshToken = (refreshToken: string): Promise<number> =>
   new Promise((resolve, reject) => {
+    console.log(`refresh token: ${refreshToken}`);
     JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || "RandomRefreshToken", async (err, payload: any) => {
       if (err) return reject(new createError.Unauthorized());
       const userId: string | undefined = payload.aud;

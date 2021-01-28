@@ -2,12 +2,15 @@ import express, { Response, Request, NextFunction } from "express";
 import createError from "http-errors";
 import morgan from "morgan";
 import AuthRouter from "./Controllers/Auth.Controller";
-import { initDb, prisma } from "./db";
+import { initDb } from "./db";
 import { ErrorType } from "./types";
-import { verifyAccessToken } from "./Services/Token.Service";
+import UserRouter from "./Controllers/User.Controller";
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 const app = express();
+app.use(cookieParser());
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,12 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // ++++++++
 app.use("/auth", AuthRouter);
 
-app.get("/", verifyAccessToken, async (req, res, _next) => {
-  console.log(req.payload?.user?.userId);
-  const userId = req.payload?.user?.userId;
-  const user = await prisma.user.findUnique({ where: { id: userId } });
-  res.send(user);
-});
+app.use(UserRouter);
 
 // ++++++++++++++++++
 /* ERROR HANDLERS */
