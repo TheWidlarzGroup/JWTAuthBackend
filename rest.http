@@ -1,5 +1,5 @@
 GET http://localhost:3001
-Authorization: Bearer eyJhbGcsiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6NSwidXNlckVtYWlsIjoia2FjcGVyQGdtYWlsLmNvbSJ9LCJpYXQiOjE2MTE3ODI4NjksImV4cCI6MTYxMTc4MzE2OSwiYXVkIjoiNSJ9.jwql5kIr3xpyrw_QBncPffDEyyivAlD9_YenX-ca2c4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6NX0sImlhdCI6MTYxMTg1NTgzOSwiZXhwIjoxNjExODU2MTM5LCJhdWQiOiI1In0.WzV9MXd92y2fYQzrkRDZAgNbATfCQ9pdyEXuZXh1iIw
 
 ###Login Route
 POST http://localhost:3001/auth/login
@@ -34,5 +34,5 @@ DELETE http://localhost:3001/auth/logout
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTI1ODcyOTIsImV4cCI6MTYyNDE0NDg5MiwiYXVkIjoiNWVlYTBlOTlkMTU3ZjYzZjNlMzYxYjQxIiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.OGfV-n2fsuV2D5nvUGEzU7KLtkbIy1Pmm4DwxB75MKU"
+  "refreshToken": ""
 }

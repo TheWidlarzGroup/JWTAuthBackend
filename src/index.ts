@@ -2,7 +2,7 @@ import express, { Response, Request, NextFunction } from "express";
 import createError from "http-errors";
 import morgan from "morgan";
 import AuthRouter from "./Controllers/Auth.Controller";
-import { initDb } from "./db";
+import { initDb, prisma } from "./db";
 import { ErrorType } from "./types";
 import { verifyAccessToken } from "./Services/Token.Service";
 require("dotenv").config();
@@ -17,8 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 // ++++++++
 app.use("/auth", AuthRouter);
 
-app.get("/", verifyAccessToken, async (_req, res, _next) => {
-  res.send("Hello from express.");
+app.get("/", verifyAccessToken, async (req, res, _next) => {
+  console.log(req.payload?.user?.userId);
+  const userId = req.payload?.user?.userId;
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  res.send(user);
 });
 
 // ++++++++++++++++++

@@ -1,5 +1,5 @@
 import express from "express";
-import { login, refreshToken, register } from "src/Services/Auth.Service";
+import { login, logout, refreshToken, register } from "src/Services/Auth.Service";
 
 const AuthRouter = express.Router();
 
@@ -31,9 +31,10 @@ AuthRouter.post("/refresh-token", async (req, res, next) => {
   }
 });
 
-AuthRouter.delete("/logout", async (_req, res, next) => {
+AuthRouter.delete("/logout", async (req, res, next) => {
   try {
-    res.send("logout route");
+    const result = await logout(req.body);
+    res.send(result);
   } catch (error) {
     next(error);
   }

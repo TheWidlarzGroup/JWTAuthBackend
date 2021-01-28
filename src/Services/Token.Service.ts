@@ -31,11 +31,16 @@ export const verifyAccessToken = (req: Request, _res: Response, next: NextFuncti
   const authHeader = req.headers["authorization"];
   const bearerToken = authHeader.split(" ");
   const token = bearerToken[1];
-  JWT.verify(token, process.env.ACCESS_TOKEN_SECRET || "RandomToken", (err, payload) => {
+  console.log(token);
+  console.log(req.headers);
+  JWT.verify(token, process.env.ACCESS_TOKEN_SECRET || "RandomToken", async (err, payload) => {
     if (err) {
       const message = err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
       return next(new createError.Unauthorized(message));
     }
+    //@ts-ignore
+    const user = await prisma.user.findUnique({ where: { id: payload?.user?.userId } });
+    if (user?.access_token !== token) return next(new createError.Unauthorized());
     req.payload = payload;
     next();
   });
