@@ -9,7 +9,7 @@ UserRouter.use(verifyAccessToken);
 UserRouter.get("/me", async (req, res, next) => {
   try {
     const userId = req.payload?.user?.userId;
-    const user = await prisma.user.findUnique({ where: { id: userId } });
+    const user = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } });
     res.send(user);
   } catch (error) {
     next(error);
