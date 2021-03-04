@@ -6,10 +6,16 @@ import { initDb } from "./db";
 import { ErrorType } from "./types";
 import UserRouter from "./Controllers/User.Controller";
 require("dotenv").config();
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: " http://localhost:3000/",
+  })
+);
 
 app.use(morgan("dev"));
 app.use(express.json());

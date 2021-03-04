@@ -43,9 +43,11 @@ export const login = async (loginDto: LoginDTO) => {
 };
 
 export const refreshToken = async (refreshTokenDto: RefreshTokenDTO) => {
-  const result: RefreshTokenDTO = await refreshTokenSchema.validateAsync(refreshTokenDto);
+  const result: RefreshTokenDTO = await refreshTokenSchema.validateAsync(refreshTokenDto, { abortEarly: true });
   const { refreshToken } = result;
-  if (!refreshToken) throw new createError.BadRequest();
+  if (!refreshToken) {
+    throw new createError.BadRequest();
+  }
   const userId = await verifyRefreshToken(refreshToken);
   const newAccessToken = await signAccessToken(userId);
   const newRefreshToken = await signRefreshToken(userId);
