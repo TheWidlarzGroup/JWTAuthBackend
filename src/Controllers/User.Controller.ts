@@ -22,7 +22,6 @@ UserRouter.get("/frogs", verifyAccessToken, async (_req, res, next) => {
     );
     res.send(await response.json());
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });
