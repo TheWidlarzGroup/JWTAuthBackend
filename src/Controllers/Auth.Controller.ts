@@ -21,13 +21,11 @@ AuthRouter.post("/login", async (req, res, next) => {
 
     res.send({ accessToken: result.accessToken });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });
 
 AuthRouter.post("/refresh-token", async (req, res, next) => {
-  console.log("refreshing token");
   try {
     console.log(req.cookies.refresh_token);
     const result = await refreshToken({ refreshToken: req.cookies.refresh_token });
