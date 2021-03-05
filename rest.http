@@ -1,5 +1,5 @@
 GET http://localhost:3001/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6NX0sImlhdCI6MTYxMTg1NzI4MywiZXhwIjoxNjExODU3NTgzLCJhdWQiOiI1In0._bZGVt9ddNdeM9LAc1ncSscnqABD3KElQsFUVgcd7VY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6MTJ9LCJpYXQiOjE2MTI0ODQ3MzIsImV4cCI6MTYxMjQ4NTAzMiwiYXVkIjoiMTIifQ.f9fvLYHGbaVka5ecxuYHguTCEh2vHiGAUgkpDktZjz4
 ###Login Route
 POST http://localhost:3001/auth/login
 Content-Type: application/json

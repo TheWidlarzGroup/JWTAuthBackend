@@ -21,13 +21,13 @@ AuthRouter.post("/login", async (req, res, next) => {
 
     res.send({ accessToken: result.accessToken });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });
 
 AuthRouter.post("/refresh-token", async (req, res, next) => {
   try {
+    console.log(req.cookies.refresh_token);
     const result = await refreshToken({ refreshToken: req.cookies.refresh_token });
     res.cookie("refresh_token", result.refreshToken, { maxAge: 60 * 60 * 1000, httpOnly: true, secure: false });
     res.send({ accessToken: result.accessToken });
@@ -38,7 +38,7 @@ AuthRouter.post("/refresh-token", async (req, res, next) => {
 
 AuthRouter.delete("/logout", async (req, res, next) => {
   try {
-    console.log(req.cookies);
+    res.cookie("refresh_token", "", { maxAge: 60 * 60 * 1000, httpOnly: true, secure: false });
     const result = await logout({ refreshToken: req.cookies.refresh_token });
     res.send(result);
   } catch (error) {

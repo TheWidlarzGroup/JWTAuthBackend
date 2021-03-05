@@ -10,12 +10,11 @@ export const signAccessToken = (userId: number) => {
     };
     const secret = process.env.ACCESS_TOKEN_SECRET || "RandomToken";
     const options = {
-      expiresIn: "5m",
+      expiresIn: "10s",
       audience: `${userId}`,
     };
     JWT.sign(payload, secret, options, async (err, token) => {
       if (err) {
-        console.log(err.message);
         reject(new createError.InternalServerError());
         return;
       }
@@ -37,7 +36,9 @@ export const verifyAccessToken = (req: Request, _res: Response, next: NextFuncti
     }
     //@ts-ignore
     const user = await prisma.user.findUnique({ where: { id: payload?.user?.userId } });
-    if (user?.access_token !== token) return next(new createError.Unauthorized());
+    if (user?.access_token !== token) {
+      return next(new createError.Unauthorized());
+    }
     req.payload = payload;
     next();
   });
@@ -55,7 +56,6 @@ export const signRefreshToken = (userId: number) =>
     };
     JWT.sign(payload, secret, options, async (err, token) => {
       if (err) {
-        console.log(err.message);
         reject(new createError.InternalServerError());
       }
       await prisma.user.update({ where: { id: userId }, data: { refresh_token: token } });
@@ -65,7 +65,6 @@ export const signRefreshToken = (userId: number) =>
 
 export const verifyRefreshToken = (refreshToken: string): Promise<number> =>
   new Promise((resolve, reject) => {
-    console.log(`refresh token: ${refreshToken}`);
     JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || "RandomRefreshToken", async (err, payload: any) => {
       if (err) return reject(new createError.Unauthorized());
       const userId: string | undefined = payload.aud;
