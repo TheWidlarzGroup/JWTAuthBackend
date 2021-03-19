@@ -21,6 +21,8 @@ Add .env file with DATABASE_URL
 
 example:
 DATABASE_URL =  "postgresql://postgres:postgres@localhost:5432/prismadb"
+REFRESH_TOKEN_SECRET = "refreshthesecretphrog"
+ACCESS_TOKEN_SECRET = "accessthesecretphrog"
 ```
 
 - Step 4: Run Prisma migration:
