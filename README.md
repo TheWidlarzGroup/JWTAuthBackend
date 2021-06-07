@@ -1,5 +1,7 @@
 # Backend for my article on [TheWidlarzGroup](https://www.thewidlarzgroup.com/)
 
+[install postgres](https://www.postgresqltutorial.com/install-postgresql/)
+
 ### How to run?!
 
 - Step 1: Clone the project
